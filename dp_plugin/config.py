@@ -16,6 +16,7 @@ class BaseConfig(object):
     APP_NAME = environ.get('APP_NAME') or 'dp-plugin'
     ORIGINS = ['*']
     API_KEY = environ.get('API_KEY')
+    MISP_URL = environ.get('MISP_URL')
     LOG_INFO_FILE = path.join(basedir, 'log', 'info.log')
     LOGGING = {
         'version': 1,

@@ -8,7 +8,6 @@ import logging.config
 
 def create_app(test_config=None):
     # Create and configure the app
-    # Include the first parameter: Here, __name__is the name of the current Python module.
     app = Flask(__name__, instance_relative_config=True)
 
     load_dotenv()
@@ -28,13 +27,11 @@ def create_app(test_config=None):
 
     app.config.from_object(config[APPLICATION_ENV])
 
-    @app.route('/', methods=['GET'])
-    def hello_world():
-        return jsonify({'message': 'Hello, World!'})
-
-    @app.route('/entrees/<int:entree_id>')
-    def retrieve_entree(entree_id):
-        return 'Entree %d' % entree_id
+    from .views import core as core_blueprint
+    app.register_blueprint(
+        core_blueprint,
+        url_prefix='/api/v1'
+    )
 
     @app.errorhandler(404)
     def not_found(error):
@@ -43,6 +40,14 @@ def create_app(test_config=None):
             "error": 404,
             "message": "Not found"
         }), 404
+
+    @app.errorhandler(400)
+    def bad_request(error):
+        return jsonify({
+            "success": False,
+            "error": 400,
+            "message": "Bad request"
+        }), 400
 
     @app.errorhandler(422)
     def unprocessable(error):
