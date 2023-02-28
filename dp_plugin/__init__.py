@@ -38,7 +38,7 @@ def create_app(test_config=None):
         return jsonify({
             "success": False,
             "error": 404,
-            "message": "Not found"
+            "message": str(error)
         }), 404
 
     @app.errorhandler(400)
@@ -46,7 +46,7 @@ def create_app(test_config=None):
         return jsonify({
             "success": False,
             "error": 400,
-            "message": "Bad request"
+            "message": str(error)
         }), 400
 
     @app.errorhandler(422)
@@ -54,8 +54,16 @@ def create_app(test_config=None):
         return jsonify({
             "success": False,
             "error": 422,
-            "message": "Unprocessable"
-        }), 404
+            "message": str(error)
+        }), 422
+
+    @app.errorhandler(500)
+    def server_error(error):
+        return jsonify({
+            "success": False,
+            "error": 500,
+            "message": str(error)
+        }), 500
 
     # Return the app instance
     return app
