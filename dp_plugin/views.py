@@ -74,7 +74,6 @@ def create_event():
         event.published = True
         event.add_attribute('domain', domain)
         event.add_attribute('hostname', domain)
-        event.add_attribute('chrome-extension-id', "cgmnlnejpbdaijoknfmahfcjfjmnjhnl")
         event.set_date(date.today())
         event.add_tag('dark-pattern-1')
         # Add custom object to the event
