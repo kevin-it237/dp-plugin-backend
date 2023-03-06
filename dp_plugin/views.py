@@ -71,9 +71,9 @@ def create_event():
         # Optional, defaults to MISP.default_event_threat_level in MISP config
         event.threat_level_id = 2
         event.analysis = 1  # Optional, defaults to 0 (initial analysis)
-        event.published = True
-        event.add_attribute('domain', domain)
-        event.add_attribute('hostname', domain)
+        # event.published = True
+        event.add_attribute(type='url', value=domain)
+        event.add_attribute(type='other', value=location)
         event.set_date(date.today())
         event.add_tag('dark-pattern-1')
         # Add custom object to the event
