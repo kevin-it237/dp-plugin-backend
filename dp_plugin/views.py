@@ -1,7 +1,8 @@
 
 from flask import Blueprint, current_app, jsonify, abort, request
+import sys
 from werkzeug.local import LocalProxy
-from datetime import date
+from datetime import date, datetime
 from .config import config
 from dotenv import load_dotenv
 from . import get_environment
@@ -74,18 +75,21 @@ def create_event():
         event.analysis = 1  # Optional, defaults to 0 (initial analysis)
         event.published = True
         # add datetime attribute
-        event.add_attribute(type='datetime', value=date.today())
+        event.add_attribute(type='datetime', value=datetime.now())
         event.set_date(date.today())
         event.add_tag('dark-pattern-1')
         
         # Add custom object to the event
         # * standalone: this object will be attached to a MISPEvent, so the references will be in the dump
-        dark_pattern_v3_obj = MISPObject(name='dark-pattern-schema-v3')
-        dark_pattern_v3_obj.add_attribute(object_relation='Place_of_publication', type='text', value=location)
-        dark_pattern_v3_obj.add_attribute(object_relation='Regulations', type='text', value=requirements)
-        dark_pattern_v3_obj.add_attribute(object_relation='Design strategies', type='text', value=strategies)
-        # dark_pattern_v3_obj.add_attribute(object_relation='Additional_Info', type='text', value=notes)
-        dark_pattern_v3_obj.add_attribute(object_relation='Business_sector', type='text', value="Public administration")
+        template = misp.get_object_template("d1963c06-4e2c-11ed-bdc3-0242ac120002", pythonify=True).to_dict()
+        #print(template.misp_objects_path)
+        dark_pattern_v3_obj = MISPObject(name='dark-pattern-schema-v3', strict=False, misp_objects_template_custom=misp.get_object_template(296))
+        #dark_pattern_v3_obj.add_attribute(object_relation='Place_of_publication', type='text', value=location)
+        print(dark_pattern_v3_obj.to_dict())
+        #dark_pattern_v3_obj.add_attribute(object_relation='Regulations', type='text', value=requirements)
+        #dark_pattern_v3_obj.add_attribute(object_relation='Design strategies', type='text', value=strategies)
+        #dark_pattern_v3_obj.add_attribute(object_relation='Additional_Info', type='text', value=notes)
+        #dark_pattern_v3_obj.add_attribute(object_relation='Business_sector', type='text', value="Public administration")
         event.add_object(dark_pattern_v3_obj)
 
         # Add an attachment
@@ -98,8 +102,12 @@ def create_event():
         attachment_object.add_attribute(object_relation="url", value=domain)
         event.add_object(attachment_object)
         
-        event.publish()
         event = misp.add_event(event, pythonify=True)
+        event.publish()
+
+        if isinstance(event, dict) and 'errors' in event:
+            print('add_event failed: {}'.format(event['errors']), file=sys.stderr)
+            abort(422, description='add_event failed: {}'.format(event['errors']))
 
         return jsonify({
             'success': True,
