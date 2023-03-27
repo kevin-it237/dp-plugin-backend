@@ -1,5 +1,5 @@
 
-from flask import Blueprint, current_app, jsonify, abort, request
+from flask import Blueprint, current_app, jsonify, abort, request, json
 import sys
 from werkzeug.local import LocalProxy
 from datetime import date, datetime
@@ -7,8 +7,8 @@ from .config import config
 from dotenv import load_dotenv
 from . import get_environment
 from werkzeug.utils import secure_filename
-import json
 import base64
+import os
 
 from pymisp import MISPEvent, MISPObject, PyMISP
 
@@ -23,6 +23,10 @@ misp.toggle_global_pythonify()  # Returns PyMISP objects whenever possible, allo
 
 core = Blueprint('core', __name__)
 logger = LocalProxy(lambda: current_app.logger)
+
+app_root = os.path.realpath(os.path.dirname(__file__))
+template_url = os.path.join(app_root, "", "")
+#template_definition = json.load(open(json_url))
 
 @core.before_request
 def before_request_func():
@@ -62,8 +66,8 @@ def create_event():
     domain = data['domain']
     location = data['location']
     notes = data['notes'] 
-    strategies = json.loads(data['strategies'])
-    requirements = json.loads(data['requirements'])
+    strategies = data['strategies']
+    requirements = data['requirements']
     
     try:
         event = MISPEvent()
@@ -80,17 +84,15 @@ def create_event():
         event.add_tag('dark-pattern-1')
         
         # Add custom object to the event
-        # * standalone: this object will be attached to a MISPEvent, so the references will be in the dump
-        template = misp.get_object_template("d1963c06-4e2c-11ed-bdc3-0242ac120002", pythonify=True).to_dict()
-        #print(template.misp_objects_path)
-        dark_pattern_v3_obj = MISPObject(name='dark-pattern-schema-v3', strict=False, misp_objects_template_custom=misp.get_object_template(296))
-        #dark_pattern_v3_obj.add_attribute(object_relation='Place_of_publication', type='text', value=location)
-        print(dark_pattern_v3_obj.to_dict())
-        #dark_pattern_v3_obj.add_attribute(object_relation='Regulations', type='text', value=requirements)
-        #dark_pattern_v3_obj.add_attribute(object_relation='Design strategies', type='text', value=strategies)
-        #dark_pattern_v3_obj.add_attribute(object_relation='Additional_Info', type='text', value=notes)
-        #dark_pattern_v3_obj.add_attribute(object_relation='Business_sector', type='text', value="Public administration")
-        event.add_object(dark_pattern_v3_obj)
+        #template = misp.get_object_template(297, pythonify=True).to_dict()
+        #dark_pattern_v3_obj = MISPObject(name='dark-pattern-schema-v3', strict=False, misp_objects_template_custom=template)
+        dark_pattern_v5_obj = MISPObject(name='dark-pattern-schema-v5', strict=True, misp_objects_path_custom=template_url)
+        dark_pattern_v5_obj.add_attribute(object_relation='Place_of_publication', type='text', value="Blog")  #REQUIRED
+        dark_pattern_v5_obj.add_attribute(object_relation='Regulations', type='text', value="Digital services act") #REQUIRED
+        dark_pattern_v5_obj.add_attribute(object_relation='Dark pattern strategies', type='text', value=strategies)
+        dark_pattern_v5_obj.add_attribute(object_relation='Data protection requirement', type='text', value=requirements)
+        dark_pattern_v5_obj.add_attribute(object_relation='Additional_Info', type='text', value=notes)
+        event.add_object(dark_pattern_v5_obj)
 
         # Add an attachment
         # check if the post request has the file part
@@ -116,6 +118,7 @@ def create_event():
         }), 201
     
     except Exception as e:
+      print(e)
       abort(422, description=str(e))
 
 @core.route('/events/<string:event_id>')
