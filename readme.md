@@ -97,3 +97,4 @@ APP_NAME=dp-plugin
 API_KEY=YOUR_MISP_API_KEY
 MISP_URL=yourmispinstance.domain
 ```
+...
