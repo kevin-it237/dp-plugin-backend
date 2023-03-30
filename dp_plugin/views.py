@@ -71,27 +71,29 @@ def create_event():
     
     try:
         event = MISPEvent()
-        event.info = 'dark-pattern-1'  # Required
+        event.info = 'dark-pattern-plugin'  # Required
         # Optional, defaults to MISP.default_event_distribution in MISP config
-        event.distribution = 0
+        event.distribution = 1
         # Optional, defaults to MISP.default_event_threat_level in MISP config
         event.threat_level_id = 2
         event.analysis = 1  # Optional, defaults to 0 (initial analysis)
         event.published = True
         # add datetime attribute
         event.add_attribute(type='datetime', value=datetime.now())
+        event.add_attribute(type='target-location', value=location)
         event.set_date(date.today())
-        event.add_tag('dark-pattern-1')
+        event.add_tag('dark-pattern-plugin-1')
         
         # Add custom object to the event
-        #template = misp.get_object_template(297, pythonify=True).to_dict()
-        #dark_pattern_v3_obj = MISPObject(name='dark-pattern-schema-v3', strict=False, misp_objects_template_custom=template)
-        dark_pattern_v5_obj = MISPObject(name='dark-pattern-schema-v5', strict=True, misp_objects_path_custom=template_url)
-        dark_pattern_v5_obj.add_attribute(object_relation='Place_of_publication', type='text', value="Blog")  #REQUIRED
-        dark_pattern_v5_obj.add_attribute(object_relation='Regulations', type='text', value="Digital services act") #REQUIRED
-        dark_pattern_v5_obj.add_attribute(object_relation='Dark pattern strategies', type='text', value=strategies)
-        dark_pattern_v5_obj.add_attribute(object_relation='Data protection requirement', type='text', value=requirements)
-        dark_pattern_v5_obj.add_attribute(object_relation='Additional_Info', type='text', value=notes)
+        template = misp.get_object_template(297, pythonify=True).to_dict()
+        #dark_pattern_v5_obj = MISPObject(name='dark-pattern-schema-v5', strict=True, misp_objects_path_custom=template_url)
+
+        dark_pattern_v5_obj = MISPObject(name='dark-pattern-schema-v5', strict=False, misp_objects_template_custom=template)
+        #dark_pattern_v5_obj.add_attribute(object_relation='Place_of_publication', type='text', value="Blog")  #REQUIRED
+        #dark_pattern_v5_obj.add_attribute(object_relation='Regulations', type='text', value="Digital services act") #REQUIRED
+        # dark_pattern_v5_obj.add_attribute(object_relation='Dark pattern strategies', type='text', value=strategies)
+        #dark_pattern_v5_obj.add_attribute(object_relation='Data protection requirement', type='text', value=requirements)
+        #dark_pattern_v5_obj.add_attribute(object_relation='Additional_Info', type='text', value=notes)
         event.add_object(dark_pattern_v5_obj)
 
         # Add an attachment
