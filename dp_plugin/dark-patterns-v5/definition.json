@@ -140,10 +140,10 @@
 
   },
   "description": "A Dark Pattern Template.",
-  "meta-category": "dark patterns",
-  "name": "dark-pattern-schema",
-  "uuid": "12f9392a-9f5e-4251-a13b-cf9eda79ae02",
-  "version": 1.3,
+  "meta-category": "dark patterns v5",
+  "name": "dark-pattern-schema-v5",
+  "uuid": "12f9392a-9f5e-4251-a13b-cf9eda79ae04",
+  "version": 1,
   "required":  
 	[
 	"Regulations",

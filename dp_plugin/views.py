@@ -25,8 +25,8 @@ core = Blueprint('core', __name__)
 logger = LocalProxy(lambda: current_app.logger)
 
 app_root = os.path.realpath(os.path.dirname(__file__))
-template_url = os.path.join(app_root, "", "")
-#template_definition = json.load(open(json_url))
+template_url = os.path.join(app_root, "dark-patterns-v5", "definition.json")
+template_definition = json.load(open(template_url))
 
 @core.before_request
 def before_request_func():
@@ -85,15 +85,14 @@ def create_event():
         event.add_tag('dark-pattern-plugin-1')
         
         # Add custom object to the event
-        template = misp.get_object_template(297, pythonify=True).to_dict()
-        #dark_pattern_v5_obj = MISPObject(name='dark-pattern-schema-v5', strict=True, misp_objects_path_custom=template_url)
+        template = misp.get_object_template("12f9392a-9f5e-4251-a13b-cf9eda79ae04", pythonify=True).to_dict()
 
-        dark_pattern_v5_obj = MISPObject(name='dark-pattern-schema-v5', strict=False, misp_objects_template_custom=template)
+        dark_pattern_v5_obj = MISPObject(name='dark-pattern-schema-v5', strict=False, misp_objects_template_custom=template_definition)
         #dark_pattern_v5_obj.add_attribute(object_relation='Place_of_publication', type='text', value="Blog")  #REQUIRED
         #dark_pattern_v5_obj.add_attribute(object_relation='Regulations', type='text', value="Digital services act") #REQUIRED
-        # dark_pattern_v5_obj.add_attribute(object_relation='Dark pattern strategies', type='text', value=strategies)
-        #dark_pattern_v5_obj.add_attribute(object_relation='Data protection requirement', type='text', value=requirements)
-        #dark_pattern_v5_obj.add_attribute(object_relation='Additional_Info', type='text', value=notes)
+        dark_pattern_v5_obj.add_attribute(object_relation='Dark pattern strategies', type='text', value=strategies)
+        dark_pattern_v5_obj.add_attribute(object_relation='Data protection requirement', type='text', value=requirements)
+        dark_pattern_v5_obj.add_attribute(object_relation='Additional_Info', type='text', value=notes)
         event.add_object(dark_pattern_v5_obj)
 
         # Add an attachment
@@ -115,7 +114,6 @@ def create_event():
 
         return jsonify({
             'success': True,
-            'created': json.dumps(event.to_json()),
             'message': "Event successfully created",
         }), 201
     
