@@ -22,8 +22,11 @@ flask --app dp_plugin --debug run
 
 Run production
 ```
-waitress-serve --call "dp_plugin:create_app"
+gunicorn --workers=3  wsgi:app --daemon
 ```
+cut process: 
+sudo pkill -f gunicorn
+sudo nginx -s reload
 
 These commands put the application in development and directs our application to use the `__init__.py` file in our flaskr folder. Working in development mode shows an interactive debugger in the console and restarts the server whenever changes are made. If running locally on Windows, look for the commands in the [Flask documentation](http://flask.pocoo.org/docs/1.0/tutorial/factory/).
 
@@ -51,23 +54,12 @@ The API will return three error types when requests fail:
 
 ### Endpoints 
 
-#### POST /books
+#### POST /events
 - General:
-    - Creates a new book using the submitted title, author and rating. Returns the id of the created book, success value, total books, and book list based on current page number to update the frontend. 
-- `curl http://127.0.0.1:5000/books?page=3 -X POST -H "Content-Type: application/json" -d '{"title":"Neverwhere", "author":"Neil Gaiman", "rating":"5"}'`
+    - Create an event on MISP
 ```
 {
-  "books": [
-    {
-      "author": "Neil Gaiman",
-      "id": 24,
-      "rating": 5,
-      "title": "Neverwhere"
-    }
-  ],
-  "created": 24,
-  "success": true,
-  "total_books": 17
+  
 }
 ```
 
@@ -75,15 +67,14 @@ The API will return three error types when requests fail:
 
 ### Prerequisites
 
-- Python 3.9.2 or higher
-- Up and running Redis client
+- Python 3.6.2 or higher
 
 ### Project setup
 ```sh
 # clone the repo
-$ git clone https://github.com/idris-rampurawala/flask-boilerplate.git
+$ git clone git@github.com:kevin-it237/dp-plugin-backend.git
 # move to the project folder
-$ cd flask-boilerplate
+$ cd dp-plugin-backend
 
 ### Creating virtual environment
 - Install `pipenv` a global python project `pip install pipenv`
