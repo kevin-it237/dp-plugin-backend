@@ -1,6 +1,31 @@
 # Dark pattern report
 
-This project is a ..
+# Getting Started
+
+### Prerequisites
+
+- Python 3.6.2 or higher
+
+### Project setup
+```sh
+# clone the repo
+$ git clone git@github.com:kevin-it237/dp-plugin-backend.git
+# move to the project folder
+$ cd dp-plugin-backend
+
+### Creating virtual environment
+- Install `pipenv` a global python project `pip install pipenv`
+- Create a `virtual environment` for this project
+```
+
+#### Create a .env file at the root of the project
+```
+APPLICATION_ENV=development
+APP_NAME=dp-plugin
+API_KEY=YOUR_MISP_API_KEY
+MISP_URL=yourmispinstance.domain
+```
+...
 
 All backend code follows [PEP8 style guidelines](https://www.python.org/dev/peps/pep-0008/). 
 
@@ -59,33 +84,12 @@ The API will return three error types when requests fail:
     - Create an event on MISP
 ```
 {
-  
+    domain: the domain name where the dark pattern is.
+    location: location of the user.
+    strategies: the deceptive strategy.
+    attachment: An image file to be uploaded with the event.
+    requirements: requirements that the dark pattern potentially violates
+    notes: notes from users
 }
 ```
 
-# Getting Started
-
-### Prerequisites
-
-- Python 3.6.2 or higher
-
-### Project setup
-```sh
-# clone the repo
-$ git clone git@github.com:kevin-it237/dp-plugin-backend.git
-# move to the project folder
-$ cd dp-plugin-backend
-
-### Creating virtual environment
-- Install `pipenv` a global python project `pip install pipenv`
-- Create a `virtual environment` for this project
-```
-
-#### Create a .env file at the root of the project
-```
-APPLICATION_ENV=development
-APP_NAME=dp-plugin
-API_KEY=YOUR_MISP_API_KEY
-MISP_URL=yourmispinstance.domain
-```
-...
