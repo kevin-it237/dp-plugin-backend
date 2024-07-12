@@ -330,6 +330,31 @@
         "description": "Indicates if information is hidden",
         "disable_correlation": false,
         "misp-attribute": "boolean"
+      },
+      "covertRulesMatched": {
+        "description": "Classification rules matched for Covert",
+        "disable_correlation": false,
+        "misp-attribute": "text"
+      },
+      "restrictiveRulesMatched": {
+        "description": "Classification rules matched for Restrictive",
+        "disable_correlation": false,
+        "misp-attribute": "text"
+      },
+      "asymmetricRulesMatched": {
+        "description": "Classification rules matched for Asymmetric",
+        "disable_correlation": false,
+        "misp-attribute": "text"
+      },
+      "deceptiveRulesMatched": {
+        "description": "Classification rules matched for Deceptive",
+        "disable_correlation": false,
+        "misp-attribute": "text"
+      },
+      "hiddenInformationRulesMatched": {
+        "description": "Classification rules matched for Information Hiding",
+        "disable_correlation": false,
+        "misp-attribute": "text"
       }
     },
     "description": "A Dark Pattern Template.",

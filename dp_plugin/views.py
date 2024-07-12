@@ -4,13 +4,14 @@ import sys
 from werkzeug.local import LocalProxy
 from datetime import date, datetime
 from .config import config
+from .helper import build_misp_object
 from dotenv import load_dotenv
 from . import get_environment
 from werkzeug.utils import secure_filename
 import base64
 import os
 
-from pymisp import MISPEvent, MISPObject, PyMISP, ExpandedPyMISP
+from pymisp import MISPEvent, MISPObject, PyMISP
 
 load_dotenv()
 
@@ -86,14 +87,14 @@ def create_event():
         event.add_tag('dark-pattern-plugin-1')
         
         # Add custom object to the event
-        # template = misp.get_object_template("12f9392a-9f5e-4251-a13b-cf9eda79ae04", pythonify=True).to_dict()
-
         dark_pattern_v5_obj = MISPObject(name='dark-pattern-schema-v5', strict=False, misp_objects_template_custom=template_definition)
-        #dark_pattern_v5_obj.add_attribute(object_relation='Place_of_publication', type='text', value="Blog")  #REQUIRED
-        #dark_pattern_v5_obj.add_attribute(object_relation='Regulations', type='text', value="Digital services act") #REQUIRED
         dark_pattern_v5_obj.add_attribute(object_relation='Dark pattern strategies', type='text', value=strategies)
         dark_pattern_v5_obj.add_attribute(object_relation='Data protection requirement', type='text', value=requirements)
         dark_pattern_v5_obj.add_attribute(object_relation='Additional_Info', type='text', value=notes)
+        
+        # Add more dark pattern features to the event
+        dark_pattern_v5_obj = build_misp_object(dark_pattern_v5_obj, data)
+        
         event.add_object(dark_pattern_v5_obj)
 
         # Add an attachment
