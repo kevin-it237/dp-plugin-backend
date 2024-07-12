@@ -36,20 +36,12 @@ All backend code follows [PEP8 style guidelines](https://www.python.org/dev/peps
 From the backend folder run `pip install requirements.txt`. All required packages are included in the requirements file. 
 
 To run the application run the following commands: 
-```
-export FLASK_APP=dp_plugin
-export FLASK_DEBUG=1
-flask run
-```
 
-Or using the command
-```flask --app dp_plugin --debug run```
-
-Using docker compose:
+Using docker compose (RECOMMANDED):
 ```docker-compose up --build```
 
-Stop the services and remove containers
-```docker-compose down --rmi local --remove-orphans```
+Or using the command:
+```flask --app dp_plugin --debug run```
 
 Run production
 ```
