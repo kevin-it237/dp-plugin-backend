@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+.venv
 
 # C extensions
 *.so
@@ -134,4 +135,8 @@ dmypy.json
 .vscode/*
 
 # project
+!log/.gitkeep
 log/*
+
+__pycache__
+venv

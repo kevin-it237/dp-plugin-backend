@@ -4,7 +4,7 @@
 
 ### Prerequisites
 
-- Python 3.6.2 or higher
+- Python 3.+
 
 ### Project setup
 ```sh
@@ -12,11 +12,13 @@
 $ git clone git@github.com:kevin-it237/dp-plugin-backend.git
 # move to the project folder
 $ cd dp-plugin-backend
+$ create a folder named "log"
 
 ### Creating virtual environment
 - Install `pipenv` a global python project `pip install pipenv`
 - Create a `virtual environment` for this project
 ```
+```python3 -m venv venv```
 
 #### Create a .env file at the root of the project
 ```
@@ -41,9 +43,13 @@ flask run
 ```
 
 Or using the command
-```
-flask --app dp_plugin --debug run
-```
+```flask --app dp_plugin --debug run```
+
+Using docker compose:
+```docker-compose up --build```
+
+Stop the services and remove containers
+```docker-compose down --rmi local --remove-orphans```
 
 Run production
 ```

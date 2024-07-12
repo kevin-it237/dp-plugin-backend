@@ -10,17 +10,18 @@ from werkzeug.utils import secure_filename
 import base64
 import os
 
-from pymisp import MISPEvent, MISPObject, PyMISP
+from pymisp import MISPEvent, MISPObject, PyMISP, ExpandedPyMISP
 
 load_dotenv()
 
 APPLICATION_ENV = get_environment()
 
 MISP_DEBUG = config[APPLICATION_ENV] == "development"
-misp = PyMISP(config[APPLICATION_ENV].MISP_URL, config[APPLICATION_ENV].API_KEY, True, debug=MISP_DEBUG)
+#misp = PyMISP(config[APPLICATION_ENV].MISP_URL, config[APPLICATION_ENV].API_KEY, ssl=True, debug=MISP_DEBUG)
+misp = PyMISP("https://host.docker.internal", "MIjvBVzm3a32bl2gUDJvF3LSxNH57n7uLTy1nSUl", ssl=False, debug=True)
 
-misp.toggle_global_pythonify()  # Returns PyMISP objects whenever possible, allows to skip pythonify
-
+# misp.toggle_global_pythonify()  # Returns PyMISP objects whenever possible, allows to skip pythonify
+#print(config[APPLICATION_ENV].MISP_URL)
 core = Blueprint('core', __name__)
 logger = LocalProxy(lambda: current_app.logger)
 
@@ -75,7 +76,7 @@ def create_event():
         # Optional, defaults to MISP.default_event_distribution in MISP config
         event.distribution = 1
         # Optional, defaults to MISP.default_event_threat_level in MISP config
-        event.threat_level_id = 2
+        event.threat_level_id = 1
         event.analysis = 1  # Optional, defaults to 0 (initial analysis)
         event.published = True
         # add datetime attribute
@@ -85,7 +86,7 @@ def create_event():
         event.add_tag('dark-pattern-plugin-1')
         
         # Add custom object to the event
-        template = misp.get_object_template("12f9392a-9f5e-4251-a13b-cf9eda79ae04", pythonify=True).to_dict()
+        # template = misp.get_object_template("12f9392a-9f5e-4251-a13b-cf9eda79ae04", pythonify=True).to_dict()
 
         dark_pattern_v5_obj = MISPObject(name='dark-pattern-schema-v5', strict=False, misp_objects_template_custom=template_definition)
         #dark_pattern_v5_obj.add_attribute(object_relation='Place_of_publication', type='text', value="Blog")  #REQUIRED
@@ -105,8 +106,7 @@ def create_event():
         attachment_object.add_attribute(object_relation="url", value=domain)
         event.add_object(attachment_object)
         
-        event = misp.add_event(event, pythonify=True)
-        event.publish()
+        created_event = misp.add_event(event, pythonify=False)
 
         if isinstance(event, dict) and 'errors' in event:
             print('add_event failed: {}'.format(event['errors']), file=sys.stderr)

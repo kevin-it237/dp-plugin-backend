@@ -1,152 +1,344 @@
 {
-  "attributes": {
-    "Design strategies": {
-      "description": "What tactics are implemented to manipulate users?",
-      "disable_correlation": false,
-      "misp-attribute": "text",
-      "ui-priority": 9,
-      "values_list": [
-        "Asymmetric",
-        "Restrictive",
-        "Disparate Treatment",
-        "Covert",
-        "Deceptive",
-        "Information hiding"
-      ]
+    "attributes": {
+      "Design strategies": {
+        "description": "What tactics are implemented to manipulate users?",
+        "disable_correlation": false,
+        "misp-attribute": "text",
+        "ui-priority": 9,
+        "values_list": [
+          "Asymmetric",
+          "Restrictive",
+          "Disparate Treatment",
+          "Covert",
+          "Deceptive",
+          "Information hiding"
+        ]
+      },
+      "Business_sector": {
+        "description": "In which sector does the website/app/platform mainly operate in?",
+        "disable_correlation": false,
+        "misp-attribute": "text",
+        "multiple": true,
+        "ui-priority": 8,
+        "sane_default": [
+          "E-commerce",
+          "Banking",
+          "Video games",
+          "Public administration",
+          "Health",
+          "Enter value manually"
+        ]
+      },
+      "Size_of_company": {
+        "description": "What is the size of the company?",
+        "disable_correlation": false,
+        "misp-attribute": "text",
+        "ui-priority": 7,
+        "values_list": [
+          "Large online platforms",
+          "Medium size online platforms",
+          "Small online platforms"
+        ]
+      },
+      "Target_Users": {
+        "description": "What kind of user groups is the dark pattern targeting?",
+        "disable_correlation": false,
+        "misp-attribute": "text",
+        "multiple": true,
+        "ui-priority": 6,
+        "sane_default": [
+          "Children up to 13",
+          "Teenagers (13 - 18)",
+          "Vulnerable populations",
+          "Women",
+          "Patients",
+          "LGTBIQ+",
+          "General population"
+        ]
+      },
+      "Harms": {
+        "description": "What kind of harm can this dark pattern inflict?",
+        "disable_correlation": false,
+        "misp-attribute": "text",
+        "ui-priority": 5,
+        "sane_default": [
+          "Privacy harm",
+          "Financial loss",
+          "Cognitive burden/Emotional harm",
+          "Discrimination",
+          "Competition harm",
+          "Loss of consumer trust and engagement",
+          "Enter value manually"
+        ]
+      },
+      "Data protection requirement": {
+        "description": "Which data protection requirement does the dark pattern potentially violate?",
+        "disable_correlation": false,
+        "misp-attribute": "text",
+        "ui-priority": 4,
+        "values_list": [
+          "Consent",
+          "Transparency",
+          "Data protection by design and by default",
+          "Data minimisation",
+          "Purpose specification",
+          "Fairness",
+          "Data subjects' rights",
+          "Other"
+        ]
+      },
+      "Regulations": {
+        "description": "What regulation does the dark pattern infringe?",
+        "disable_correlation": false,
+        "misp-attribute": "text",
+        "ui-priority": 3,
+        "values_list": [
+          "GDPR",
+          "ePrivacy Directive",
+          "Unfair commercial practices directive",
+          "Consumer rights directive",
+          "Digital services act",
+          "Digital markets act"
+        ]
+      },
+      "Place_of_publication": {
+        "description": "Where was the dark pattern initially reported?",
+        "disable_correlation": false,
+        "misp-attribute": "text",
+        "ui-priority": 2,
+        "values_list": [
+          "Social media",
+          "Blog",
+          "Official report",
+          "Business report",
+          "Scientific literature",
+          "New pattern not yet reported publicly",
+          "Other Dark Pattern platform"
+        ]
+      },
+      "Dark pattern strategies": {
+        "description": "Why kind of deceptive strategy uses the dark pattern?",
+        "disable_correlation": false,
+        "misp-attribute": "text",
+        "ui-priority": 1,
+        "values_list": [
+          "Obstruction",
+          "Forced action",
+          "Sneaking",
+          "Interface interference",
+          "Nagging",
+          "Social engineering"
+        ]
+      },
+      "Additional_Info": {
+        "description": "Any additional information you would like to share.",
+        "disable_correlation": true,
+        "misp-attribute": "text",
+        "ui-priority": 0
+      },
+      "website": {
+        "description": "URL of the website where the dark pattern is observed",
+        "disable_correlation": false,
+        "misp-attribute": "text"
+      },
+      "country": {
+        "description": "Country where the website/app/platform is operated from",
+        "disable_correlation": false,
+        "misp-attribute": "text"
+      },
+      "minimumFcgClicks": {
+        "description": "Minimum number of clicks required for the FCG process",
+        "disable_correlation": false,
+        "misp-attribute": "integer"
+      },
+      "minimumFcrClicks": {
+        "description": "Minimum number of clicks required for the FCR process",
+        "disable_correlation": false,
+        "misp-attribute": "integer"
+      },
+      "fcgPaths": {
+        "description": "Paths taken during the FCG process",
+        "disable_correlation": false,
+        "misp-attribute": "text"
+      },
+      "fcrPaths": {
+        "description": "Paths taken during the FCR process",
+        "disable_correlation": false,
+        "misp-attribute": "text"
+      },
+      "canNavigate": {
+        "description": "Indicates if navigation is possible during the process",
+        "disable_correlation": false,
+        "misp-attribute": "boolean"
+      },
+      "fcgDuration": {
+        "description": "Duration of the FCG process",
+        "disable_correlation": false,
+        "misp-attribute": "float"
+      },
+      "fcrDuration": {
+        "description": "Duration of the FCR process",
+        "disable_correlation": false,
+        "misp-attribute": "float"
+      },
+      "acceptButtonSize": {
+        "description": "Size of the accept button",
+        "disable_correlation": false,
+        "misp-attribute": "float"
+      },
+      "rejectButtonSize": {
+        "description": "Size of the reject button",
+        "disable_correlation": false,
+        "misp-attribute": "float"
+      },
+      "optionButtonSize": {
+        "description": "Size of the option button",
+        "disable_correlation": false,
+        "misp-attribute": "float"
+      },
+      "acceptButtonColor": {
+        "description": "Color of the accept button",
+        "disable_correlation": false,
+        "misp-attribute": "text"
+      },
+      "rejectButtonColor": {
+        "description": "Color of the reject button",
+        "disable_correlation": false,
+        "misp-attribute": "text"
+      },
+      "optionButtonColor": {
+        "description": "Color of the option button",
+        "disable_correlation": false,
+        "misp-attribute": "text"
+      },
+      "textOfTheAcceptButton": {
+        "description": "Text displayed on the accept button",
+        "disable_correlation": false,
+        "misp-attribute": "text"
+      },
+      "textOfTheRejectButton": {
+        "description": "Text displayed on the reject button",
+        "disable_correlation": false,
+        "misp-attribute": "text"
+      },
+      "textOfTheOptionButton": {
+        "description": "Text displayed on the option button",
+        "disable_correlation": false,
+        "misp-attribute": "text"
+      },
+      "bannerSize": {
+        "description": "Size of the banner",
+        "disable_correlation": false,
+        "misp-attribute": "float"
+      },
+      "hasCCImage": {
+        "description": "Indicates if the banner has a CC image",
+        "disable_correlation": false,
+        "misp-attribute": "boolean"
+      },
+      "hasFCRIcon": {
+        "description": "Indicates if the FCR process has an icon",
+        "disable_correlation": false,
+        "misp-attribute": "boolean"
+      },
+      "hasFCGIcon": {
+        "description": "Indicates if the FCG process has an icon",
+        "disable_correlation": false,
+        "misp-attribute": "boolean"
+      },
+      "privacyPolicyLinkPresent": {
+        "description": "Indicates if a privacy policy link is present",
+        "disable_correlation": false,
+        "misp-attribute": "boolean"
+      },
+      "availabilityOfFCGProcess": {
+        "description": "Indicates if the FCG process is available",
+        "disable_correlation": false,
+        "misp-attribute": "boolean"
+      },
+      "availabilityOfFCRProcess": {
+        "description": "Indicates if the FCR process is available",
+        "disable_correlation": false,
+        "misp-attribute": "boolean"
+      },
+      "fcgFontType": {
+        "description": "Font type used in the FCG process",
+        "disable_correlation": false,
+        "misp-attribute": "text"
+      },
+      "fcrFontType": {
+        "description": "Font type used in the FCR process",
+        "disable_correlation": false,
+        "misp-attribute": "text"
+      },
+      "fcgFontSize": {
+        "description": "Font size used in the FCG process",
+        "disable_correlation": false,
+        "misp-attribute": "float"
+      },
+      "fcrFontSize": {
+        "description": "Font size used in the FCR process",
+        "disable_correlation": false,
+        "misp-attribute": "float"
+      },
+      "fcgFontWeight": {
+        "description": "Font weight used in the FCG process",
+        "disable_correlation": false,
+        "misp-attribute": "integer"
+      },
+      "fcrFontWeight": {
+        "description": "Font weight used in the FCR process",
+        "disable_correlation": false,
+        "misp-attribute": "integer"
+      },
+      "bannerTextContent": {
+        "description": "Text content displayed on the banner",
+        "disable_correlation": false,
+        "misp-attribute": "text"
+      },
+      "asymmetric": {
+        "description": "Indicates if the design is asymmetric",
+        "disable_correlation": false,
+        "misp-attribute": "boolean"
+      },
+      "restrictive": {
+        "description": "Indicates if the design is restrictive",
+        "disable_correlation": false,
+        "misp-attribute": "boolean"
+      },
+      "datetime": {
+        "description": "Date and time when the dark pattern was observed",
+        "disable_correlation": false,
+        "misp-attribute": "datetime"
+      },
+      "covert": {
+        "description": "Indicates if the design is covert",
+        "disable_correlation": false,
+        "misp-attribute": "boolean"
+      },
+      "darkPattern": {
+        "description": "Indicates if it is a dark pattern",
+        "disable_correlation": false,
+        "misp-attribute": "boolean"
+      },
+      "deceptive": {
+        "description": "Indicates if the design is deceptive",
+        "disable_correlation": false,
+        "misp-attribute": "boolean"
+      },
+      "hiddenInformation": {
+        "description": "Indicates if information is hidden",
+        "disable_correlation": false,
+        "misp-attribute": "boolean"
+      }
     },
-    "Business_sector": {
-      "description": "In which sector does the website/app/platform mainly operate in?",
-      "disable_correlation": false,
-      "misp-attribute": "text",
-      "multiple": true,
-      "ui-priority": 8,
-      "sane_default": [
-        "E-commerce",
-        "Banking",
-        "Video games",
-        "Public administration",
-        "Health",
-        "Enter value manually"
-      ]
-
-    },
-    "Size_of_company": {
-      "description": "What is the size of the company?",
-      "disable_correlation": false,
-      "misp-attribute": "text",
-      "ui-priority": 7,
-      "values_list": [
-        "Large online platforms",
-        "Medium size online platforms",
-        "Small online platforms"
-      ]
-    },
-    "Target_Users": {
-      "description": "What kind of user groups is the dark pattern targeting?",
-      "disable_correlation": false,
-      "misp-attribute": "text",
-      "multiple": true,
-      "ui-priority": 6,
-      "sane_default": [
-        "Children up to 13",
-        "Teenagers (13 - 18)",
-        "Vulnerable populations",
-        "Women",
-	"Patients",
-        "LGTBIQ+",
-        "General population"
-      ]
-    },
-    "Harms": {
-      "description": "What kind of harm can this dark pattern inflict?",
-      "disable_correlation": false,
-      "misp-attribute": "text",
-      "ui-priority": 5,
-      "sane_default": [
-        "Privacy harm",
-        "Financial loss",
-        "Cognitive burden/Emotional harm",
-        "Discrimination",
-        "Competition harm",
-        "Loss of consumer trust and engagement",
-        "Enter value manually"
-      ]
-    },
-  "Data protection requirement": {
-      "description": "Which data protection requirement does the dark pattern potentially violate?",
-      "disable_correlation": false,
-      "misp-attribute": "text",
-      "ui-priority": 4,
-      "values_list": [
-        "Consent",
-	"Transparency",
-        "Data protection by design and by default",
-	"Data minimisation",
-        "Purpose specification",
-        "Fairness",
-        "Data subjects' rights",
-        "Other"
-      ]
-    },
-    "Regulations": {
-      "description": "What regulation does the dark pattern infringe?",
-      "disable_correlation": false,
-      "misp-attribute": "text",
-      "ui-priority": 3,
-      "values_list": [
-        "GDPR",
-	"ePrivacy Directive",
-        "Unfair commercial practices directive",
-	"Consumer rights directive",
-        "Digital services act",
-        "Digital markets act"
-      ]
-    },
-    "Place_of_publication": {
-      "description": "Where was the dark pattern initially reported?",
-      "disable_correlation": false,
-      "misp-attribute": "text",
-      "ui-priority": 2,
-      "values_list": [
-        "Social media",
-        "Blog",
-        "Official report",
-        "Business report",
-        "Scientific literature",
-        "New pattern not yet reported publicly",
-        "Other Dark Pattern platform"
-      ]
-    },
-"Dark pattern strategies": {
-      "description": "Why kind of deceptive strategy uses the dark pattern?",
-      "disable_correlation": false,
-      "misp-attribute": "text",
-      "ui-priority": 1,
-      "values_list": [
-        "Obstruction",
-        "Forced action",
-        "Sneaking",
-        "Interface interference",
-        "Nagging",
-        "Social engineering"
-      ]
-    },
-    "Additional_Info": {
-      "description": "Any additional information you would like to share.",
-      "disable_correlation": true,
-      "misp-attribute": "text",
-      "ui-priority": 0
-    }
-
-  },
-  "description": "A Dark Pattern Template.",
-  "meta-category": "dark patterns v5",
-  "name": "dark-pattern-schema-v5",
-  "uuid": "12f9392a-9f5e-4251-a13b-cf9eda79ae04",
-  "version": 1,
-  "required":  
-	[
-	"Regulations",
-	"Place_of_publication"
+    "description": "A Dark Pattern Template.",
+    "meta-category": "dark patterns v5",
+    "name": "dark-pattern-schema-v5",
+    "uuid": "12f9392a-9f5e-4251-a13b-cf9eda79ae05",
+    "version": 1,
+    "required": [
+      "website"
     ]
-}
+  }
+  
