@@ -3,7 +3,7 @@ Flask==2.2.3
 Flask-Cors==3.0.10
 Jinja2==3.1.2
 Pillow==9.4.0
-pymisp==2.4.166
-requests==2.31.0
+pymisp==2.4.194
+requests==2.32.3
 waitress==2.1.2
 python-dotenv==0.20.0
