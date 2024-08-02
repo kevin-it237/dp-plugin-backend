@@ -1,4 +1,7 @@
-# Import your dependencies
+# Copyright (c) 2024 Abel Kevin Ngaleu, University of Luxembourg
+# This software is licensed under the MIT License.
+# See the LICENSE file for more details.
+
 from flask import Flask, jsonify
 from flask_cors import CORS
 from .config import config

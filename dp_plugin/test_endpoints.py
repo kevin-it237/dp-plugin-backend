@@ -1,3 +1,7 @@
+# Copyright (c) 2024 Abel Kevin Ngaleu, University of Luxembourg
+# This software is licensed under the MIT License.
+# See the LICENSE file for more details.
+
 import unittest
 import json
 from dp_plugin import create_app

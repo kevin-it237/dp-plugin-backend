@@ -1,3 +1,7 @@
+# Copyright (c) 2024 Abel Kevin Ngaleu, University of Luxembourg
+# This software is licensed under the MIT License.
+# See the LICENSE file for more details.
+
 # Use an official Python runtime as a parent image
 FROM python:3.12.4
 

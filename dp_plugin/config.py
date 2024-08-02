@@ -1,3 +1,7 @@
+# Copyright (c) 2024 Abel Kevin Ngaleu, University of Luxembourg
+# This software is licensed under the MIT License.
+# See the LICENSE file for more details.
+
 from os import environ, path, mkdir, path 
 
 from dotenv import load_dotenv
